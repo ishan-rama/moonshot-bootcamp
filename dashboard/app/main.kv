@@ -1,9 +1,94 @@
+#python main.py --size=900x600
+
+#:import IconButton widgets.buttons.IconButton
+#:import Text widgets.labels.Text
 
 <MainWindow>:
-    orientation: 'vertical'
+    spacing: dp(8)
     canvas.before:
         Color:
             rgba: rgba('#ffffff')
         Rectangle:
             pos: self.pos
             size: self.size
+    BoxLayout:
+        id: nav_menu
+        size_hint_x: .15
+        orientation: 'vertical'
+        padding: dp(8)
+        BoxLayout:
+            id: logo_box
+            size_hint_y: .1
+            AnchorLayout:
+                anchor_x: 'right'
+                size_hint_x: None
+                width: dp(32)
+            IconButton:
+                source: 'assets/imgs/ARCS_LOGO.png'
+                size_hint_y: None
+                height: dp(32)
+            Text:
+                text: 'GEMS'
+                font_name: app.fonts.heading
+                font_size: app.fonts.size.h3
+        BoxLayout:
+            id: tabs_box
+            size_hint_y: .6
+        BoxLayout:
+            id: sec_tabs_box
+            size_hint_y: .3
+
+    BoxLayout:
+        size_hint_x: .85
+        spacing: dp(8)
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: [1, 1, 0, .1]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            id: searchbar
+            size_hint_y: None
+            height: dp(84)
+            padding: [dp(0), dp(8), dp(12), dp(8)]
+            canvas.before:
+                Color:
+                    rgba: [1, 0, 0, .1]
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        BoxLayout:
+            ScreenManager:
+                id: scrn_mngr
+                Screen:
+                    name: 'scrn_overview'
+                Screen:
+                    name: 'scrn_Gems Map'
+                Screen:
+                    name: 'scrn_Risk Assessments'
+                Screen:
+                    name: 'scrn_Events'
+                Screen:
+                    name: 'scrn_Your Organisation'
+
+<NavTab@ToggleButton>:
+    background_normal: ''
+    background_down: ''
+    background_down: [0,0,0,0]
+    color: rgba('c4c4c4') if self.state == 'normal' else app.colors.primary
+    canvas.before:
+        Color:
+            rgba: [0,0,0,0] if self.state == 'normal' else [1,0,1, .1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Color:
+            rgba: [0,0,0,0] if self.state == 'normal' else app.colors.primary
+        Rectangle:
+            pos: [self.pos[0]+ self.size[1], self.pos[1]]
+            size: [dp(8), self.size[1]]
+        
+        
+
